@@ -76,8 +76,10 @@ private extension AVLTree {
         if balance > 1 {
             
             if getHeight(for: node.right?.right) >= getHeight(for: node.right?.left) { // right-right - right heavy
+                
                 node = leftRotate(root: node)
             } else {
+                
                 node.right = rightRotate(root: node.right!)
                 node = leftRotate(root: node)
             }
@@ -121,6 +123,7 @@ private extension AVLTree {
      - Returns: the new root node
      */
     func leftRotate(root: BinarySearchTreeNode<Element>) -> BinarySearchTreeNode<Element> {
+        
         
         let newRoot = root.right!
         root.right = root.right?.left
