@@ -2,7 +2,7 @@ import Foundation
 
 public final class LinkedListNode<T: Comparable>: Node {
     
-    public let value: T
+    public var value: T
     public var next: LinkedListNode<T>?
     
     public init(_ value: T) {
