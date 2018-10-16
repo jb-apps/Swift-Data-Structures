@@ -69,6 +69,40 @@ public struct SinlgyLinkedListUtilities {
         
         return solutionHead
     }
+    
+    public static func addListsRecursive(list1: LinkedListNode<Int>?, list2: LinkedListNode<Int>?) -> LinkedListNode<Int>? {
+        
+        func helper(l1: LinkedListNode<Int>?, l2: LinkedListNode<Int>?, carry: Int = 0) -> LinkedListNode<Int>? {
+            
+            if l1 == nil && l2 == nil {
+                if carry == 1 {
+                    return LinkedListNode(1)
+                } else {
+                    return nil
+                }
+            }
+            
+            var value = carry
+            
+            if l1 != nil {
+                value += l1!.value
+            }
+            
+            if l2 != nil {
+                value += l2!.value
+            }
+            
+            let node = LinkedListNode(value % 10)
+
+            node.next = helper(l1: l1?.next ?? nil, l2: l2?.next ?? nil, carry: value > 9 ? 1:0)
+            
+            return node
+        }
+        
+        
+        return helper(l1: list1, l2: list2, carry: 0)
+    }
+
 }
 
 // Examples

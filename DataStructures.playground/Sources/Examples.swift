@@ -55,24 +55,45 @@ public struct Examples {
         }
         
         public static func addTwoLinkedListsIterativeWith(valuesL1: [Int], valuesL2: [Int]) {
-            
-            print("---- Running add two linked lists example ----")
+            print("---- Running add two linked lists iterative example ----")
+
+            (valuesL1 + valuesL2).forEach {
+                if $0 > 9 { fatalError("Value must be lower than 9 inclusive") }
+            }
             
             let list1 = SinglyLinkedList<Int>()
             let list2 = SinglyLinkedList<Int>()
             
-            for value in valuesL1 {
-                list1.append(value: value)
-            }
-            
-            for value in valuesL2 {
-                list2.append(value: value)
-            }
+            valuesL1.forEach { list1.append(value: $0) }
+            valuesL2.forEach { list2.append(value: $0) }
             
             print("list 1: \(list1.values())")
             print("list 2: \(list2.values())")
             
             let resultList = SinlgyLinkedListUtilities.addListsIterative(list1: list1.getHead(), list2: list2.getHead())
+            
+            print("result: \(SinlgyLinkedListUtilities.values(head: resultList))")
+            print("\n")
+        }
+        
+        public static func addTwoLinkedListsRecursiveWith(valuesL1: [Int], valuesL2: [Int]) {
+            
+            print("---- Running add two linked lists recursive example ----")
+            
+            (valuesL1 + valuesL2).forEach {
+                if $0 > 9 { fatalError("Value must be lower than 9 inclusive") }
+            }
+            
+            let list1 = SinglyLinkedList<Int>()
+            let list2 = SinglyLinkedList<Int>()
+            
+            valuesL1.forEach { list1.append(value: $0) }
+            valuesL2.forEach { list2.append(value: $0) }
+            
+            print("list 1: \(list1.values())")
+            print("list 2: \(list2.values())")
+            
+            let resultList = SinlgyLinkedListUtilities.addListsRecursive(list1: list1.getHead(), list2: list2.getHead())
             
             print("result: \(SinlgyLinkedListUtilities.values(head: resultList))")
             print("\n")
