@@ -180,3 +180,4 @@ private extension AVLTree {
         return getHeight(for: rootRight) - getHeight(for: rootLeft)
     }
 }
+
