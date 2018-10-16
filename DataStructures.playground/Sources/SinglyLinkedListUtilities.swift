@@ -21,31 +21,10 @@ public struct SinlgyLinkedListUtilities {
         return values
     }
     
-    public static func addLists(list1: LinkedListNode<Int>?, list2: LinkedListNode<Int>?) -> LinkedListNode<Int>? {
+    public static func addListsIterative(list1: LinkedListNode<Int>?, list2: LinkedListNode<Int>?) -> LinkedListNode<Int>? {
         
-        switch (list1, list2) {
-            
-        case let (.some(rootL1), .some(rootL2)):
-            return helperAddLists(l1: rootL1, l2: rootL2)
-            
-        case (.some(let root), .none):
-            return root
-            
-        case (.none, .some(let root)):
-            return root
-            
-        default:
-            return nil
-        }
-    }
-}
-
-private extension SinlgyLinkedListUtilities {
-    
-    private static func helperAddLists(l1: LinkedListNode<Int>, l2: LinkedListNode<Int>) -> LinkedListNode<Int> {
-        
-        var currentL1: LinkedListNode<Int>? = l1
-        var currentL2: LinkedListNode<Int>? = l2
+        var currentL1: LinkedListNode<Int>? = list1
+        var currentL2: LinkedListNode<Int>? = list2
         
         var solutionRunner: LinkedListNode<Int>?
         var solutionHead: LinkedListNode<Int>?
@@ -54,51 +33,41 @@ private extension SinlgyLinkedListUtilities {
         
         while currentL1 != nil || currentL2 != nil {
             
-            let value: Int
+            var value: Int = 0
             
-            switch (currentL1, currentL2) {
-                
-            case let (.some(nodeL1), .some(nodeL2)):
-                value = nodeL1.value + nodeL2.value + carry
+            if currentL1 != nil {
+                value += currentL1!.value
                 currentL1 = currentL1?.next
-                currentL2 = currentL2?.next
-                
-            case let (.some(nodeL1), .none):
-                value = nodeL1.value + carry
-                currentL1 = currentL1?.next
-                
-            case let (.none, .some(nodeL2)):
-                value = nodeL2.value + carry
-                currentL2 = currentL2?.next
-                
-            default:
-                value = 0
-                break
             }
             
-            let newNode = LinkedListNode(value % 10)
-            
-            if solutionRunner != nil {
+            if currentL2 != nil {
+                value += currentL2!.value
                 
-                solutionRunner?.next = newNode
-                solutionRunner = solutionRunner?.next
+                currentL2 = currentL2?.next
+            }
+            
+            value += carry
+            
+            let node = LinkedListNode(value % 10)
+            
+            if solutionHead == nil {
+            
+                solutionHead = node
+                solutionRunner = node
             } else {
                 
-                solutionRunner = newNode
-                solutionHead = newNode
+                solutionRunner?.next = node
+                solutionRunner = solutionRunner?.next
             }
             
             carry = value > 9 ? 1:0
         }
         
-        
-        // Check for carry in case is 1
-        
         if carry == 1 {
             solutionRunner?.next = LinkedListNode(1)
         }
         
-        return solutionHead!
+        return solutionHead
     }
 }
 
